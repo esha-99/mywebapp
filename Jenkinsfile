@@ -4,18 +4,48 @@ pipeline {
         IMAGE_NAME = "selenium-test"
     }
     stages {
-        stage('Build Docker Image') {
+        stage('Code Linting') {
             steps {
                 script {
-                    // Build the Docker image
+                    // Example: run flake8 for Python linting
+                    sh 'pip install flake8'
+                    sh 'flake8 .'
+                }
+            }
+        }
+
+        stage('Code Build') {
+            steps {
+                script {
+                    // Example: build Python package or compile code
+                    sh 'python setup.py build'
+                }
+            }
+        }
+
+        stage('Unit Testing') {
+            steps {
+                script {
+                    // Run unit tests with pytest
+                    sh 'pip install pytest'
+                    sh 'pytest tests/unit --maxfail=1 --disable-warnings -q'
+                }
+            }
+        }
+
+        stage('Containerized Deployment') {
+            steps {
+                script {
+                    // Build Docker image
                     sh 'docker build -t $IMAGE_NAME .'
                 }
             }
         }
-        stage('Run Selenium Tests') {
+
+        stage('Selenium Testing') {
             steps {
                 script {
-                    // Run the Docker container and execute the tests
+                    // Run Selenium tests inside the container
                     sh 'docker run --rm $IMAGE_NAME'
                 }
             }
@@ -23,7 +53,7 @@ pipeline {
     }
     post {
         always {
-            // Cleanup: remove any unused images, volumes, etc.
+            // Cleanup unused Docker resources
             sh 'docker system prune -af'
         }
     }
