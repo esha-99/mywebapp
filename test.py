@@ -20,7 +20,7 @@ def get_driver():
 # -----------------------------
 def test_homepage():
     driver = get_driver()
-    driver.get("http://localhost:5000")
+    driver.get("http://host.docker.internal:5000")
 
     try:
         heading = driver.find_element(By.TAG_NAME, "h1").text
