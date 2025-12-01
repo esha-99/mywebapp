@@ -21,7 +21,7 @@ RUN apt update && apt install -y \
     && rm chromedriver-linux64.zip google-chrome-stable_current_amd64.deb
 
 # Copy application code
-COPY firsttest.py .
+COPY test.py .
 
 # Run the application
 CMD ["python", "test.py"]
