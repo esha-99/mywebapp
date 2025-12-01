@@ -1,5 +1,3 @@
-3. Next create a file named 'Jenkinsfile7' and paste the following pipeline script in the Jenkinsfile7.
-
 pipeline {
     agent any
     environment {
