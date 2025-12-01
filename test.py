@@ -41,7 +41,7 @@ def test_homepage():
 # -----------------------------
 def test_add_user():
     driver = get_driver()
-    driver.get("http://localhost:5000")
+    driver.get("http://172.31.31.8:5000")
 
     try:
         driver.find_element(By.LINK_TEXT, "Add New User").click()
