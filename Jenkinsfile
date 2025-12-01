@@ -6,13 +6,15 @@ pipeline {
     stages {
         stage('Code Linting') {
             steps {
-                script {
-                    // Example: run flake8 for Python linting
-                    sh 'pip install flake8'
-                    sh 'flake8 .'
-                }
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install flake8
+                    venv/bin/flake8 .
+                '''
             }
         }
+
 
         stage('Code Build') {
             steps {
